@@ -1,0 +1,16 @@
+@mixin text-overflow1($width:0) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100% - $width;
+}
+
+@mixin text-overflow2($width:0, $line:2) {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical; //子元素应该被水平或垂直排列
+    width: 100% - $width;
+    -webkit-line-clamp: $line; //3行后显示省略号
+}

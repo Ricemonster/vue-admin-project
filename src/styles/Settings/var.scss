@@ -1,0 +1,16 @@
+// 默认基础色
+$theme-color: #1890ff; // 主题色
+$white-color: #ffffff; // 默认白
+$black-color: #000000; // 默认黑
+//  背景色
+$background-header-color: #001529; // Header 背景色
+$background-aside-color: $white-color; // MenuBar 背景色
+$background-main-color: #eef0f3; // Main 背景色
+// 文字颜色
+$text-base-color: rgba(0, 0, 0, .85); // 默认文字颜色
+$text-header-color: $white-color; // Header 文字颜色
+// 图标颜色
+$icon-header-color: $white-color;
+$icon-aside-color: $text-base-color;
+// hover颜色
+$hover-header-color: #252a3d;
