@@ -5,7 +5,10 @@ Vue.use(Vuex)
 
 
 let store = new Vuex.Store({
-    state: { token: getToken() },
+    state: {
+        token: getToken(),
+        routes: []
+    },
     mutations: {
 
     },

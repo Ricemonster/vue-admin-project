@@ -9,6 +9,7 @@
                 <i class="iconfont">&#xe8ef;</i>
             </div>
             <div class="login__loginBox__tips">
+                <el-badge :value="10" :max="20"  class="Badge" />
                 <i class="iconfont">&#xe7c4;</i>
             </div>
             <div class="login__loginBox__user">
@@ -65,6 +66,7 @@ export default {
         }
         @include e('tips'){
             @extend .item;
+            position: relative;
         }
         @include e('user'){
             height: 48px;
@@ -86,6 +88,22 @@ export default {
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        margin-right: 5px;
+        i,svg{
+            font-size: 20px;
+        }
     }
 }
+.Badge {
+    position: absolute;
+    right: 0px;
+    top: -5px;
+}
+::v-deep .el-badge__content {
+    border: 0px solid black !important;
+    background: $icon-header-Badge-color !important;
+    color: $text-header-color;
+}
+  
+
 </style>

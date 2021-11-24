@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>
+    <div v-if="$store.state.token">
       <el-container>
         <el-header height="48px">
           <Header />
@@ -10,19 +10,18 @@
             <MenuBar />
           </el-aside>
           <el-main>
-
+            <router-view />
           </el-main>
         </el-container>
       </el-container>
     </div>
-
-    <!-- <MenuBar /> -->
-    <!-- <router-view></router-view> -->
+    <div v-else>
+       <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import { Login } from './api/User';
 import MenuBar from './components/MenuBar.vue';
 import Header from './views/Layout/header.vue';
 
