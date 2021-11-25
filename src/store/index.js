@@ -1,23 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getToken, setToken } from '../utils/auth.js'
+import user from './modules/user'
+import getters from './getter'
 Vue.use(Vuex)
 
 
 let store = new Vuex.Store({
-    state: {
-        token: getToken(),
-        routes: []
+    modules: {
+        user
     },
-    mutations: {
-
-    },
-    actions: {
-        login({ commit }) {},
-        getUserInfo({ commit }) {
-
-        }
-    }
+    getters
 })
 
 export default store
