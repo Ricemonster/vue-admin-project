@@ -16,7 +16,13 @@
       </el-container>
     </div>
     <div v-else>
-       <router-view />
+      <el-header height="48px">
+        <Header />
+      </el-header>
+      <el-main>
+        <router-view />
+        <Footer />
+      </el-main>
     </div>
   </div>
 </template>
@@ -24,10 +30,10 @@
 <script>
 import MenuBar from './components/MenuBar.vue';
 import Header from './views/Layout/header.vue';
-
+import Footer from './views/Layout/footer.vue';
 export default {
   name: 'App',
-  components: {MenuBar,Header},
+  components: {MenuBar,Header,Footer},
   mounted(){
     // Login()
     // .then(res => {
@@ -46,7 +52,6 @@ export default {
 .el-header{
     background-color: $background-header-color;
     width: 100%;
-    line-height: 48px;
   }
   
   .el-aside {
@@ -57,5 +62,6 @@ export default {
   .el-main {
     height: 100%;
     overflow: scroll-y;
+    background-color: $background-main-color;
   }
 </style>

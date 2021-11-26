@@ -97,7 +97,7 @@ export default {
 .Badge {
     position: absolute;
     right: 0px;
-    top: -5px;
+    top: 10px;
 }
 ::v-deep .el-badge__content {
     border: 0px solid black !important;

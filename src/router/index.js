@@ -25,6 +25,13 @@ let routes = [{
         },
         component: () =>
             import ('@/views/login.vue')
+    },
+    {
+        path: '*',
+        name: '404',
+        component: () => {
+            import ('@/views/404.vue')
+        }
     }
 ]
 
@@ -42,7 +49,7 @@ router.beforeEach((to, from, next) => {
             if (store.getters.roles.length !== 0) {
                 next()
             } else {
-
+                console.log('未获取用户信息')
             }
         }
     } else {
@@ -51,7 +58,6 @@ router.beforeEach((to, from, next) => {
         } else if (whiteList.indexOf(to.path) !== -1) {
             next();
         } else {
-            console.log('执行')
             next('/login');
         }
     }
@@ -60,7 +66,7 @@ router.beforeEach((to, from, next) => {
 
 
 router.afterEach((to, from) => {
-    document.title = to.meta.title
+    document.title = to.meta.title + ' - Admin Template Pro'
     NProgress.done()
 })
 

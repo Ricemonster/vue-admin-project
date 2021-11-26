@@ -1,7 +1,10 @@
 import { getToken, setToken } from '@/utils/auth.js'
 
 const state = {
-    token: getToken()
+    token: getToken(),
+    userinfo: {
+        roles: []
+    }
 }
 
 const mutations = {
