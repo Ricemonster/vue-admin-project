@@ -16,13 +16,15 @@
       </el-container>
     </div>
     <div v-else>
-      <el-header height="48px">
-        <Header />
-      </el-header>
-      <el-main>
-        <router-view />
-        <Footer />
-      </el-main>
+      <el-container>
+        <el-header height="48px" style="margin-bottom: 50px">
+          <Header />
+        </el-header>
+        <el-main>
+          <router-view />
+          <Footer />
+        </el-main>
+      </el-container>
     </div>
   </div>
 </template>
@@ -47,6 +49,7 @@ export default {
 .el-container {
   height: 100vh;
   width: 100vw;
+  background-color: $background-main-color;
   overflow: hidden;
 }
 .el-header{
@@ -55,13 +58,12 @@ export default {
   }
   
   .el-aside {
-    background-color: #D3DCE6;
-    height: 100vh;
+    background-color: $background-aside-color;
+    height: 100%;
   }
   
   .el-main {
     height: 100%;
     overflow: scroll-y;
-    background-color: $background-main-color;
   }
 </style>

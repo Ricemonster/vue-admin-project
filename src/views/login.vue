@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <el-form :model="form" :rules="rules" ref="form" class="login">
     <div class="login__name">
       <div class="login__name__logo">
         <img src="~@/static/image/logo.png" alt="">
@@ -8,31 +8,37 @@
       <div class="login__name__des">Admin Template Pro 是我仿照 Ant Design 做的一个Web后台管理解决方案</div>
     </div>
     <div class="login__box">
-      <el-input
-        type="text"
-        class="login__box__input"
-        placeholder="用户名: admin visitor"
-        prefix-icon="el-icon-user"
-        v-model="username">
-      </el-input>
-      <el-input
-        type="password"
-        show-password
-        class="login__box__input"
-        placeholder="密码: 123456"
-        prefix-icon="el-icon-lock"
-        v-model="password">
-      </el-input>
+      <el-form-item class="login__box__item" prop="username">
+        <el-input
+          type="text"
+          class="login__box__input"
+          placeholder="用户名: admin visitor"
+          prefix-icon="el-icon-user"
+          v-model="form.username">
+        </el-input>
+      </el-form-item>
+      <el-form-item class="login__box__item" prop="password">
+        <el-input
+          type="password"
+          show-password
+          class="login__box__input"
+          placeholder="密码: 123456"
+          prefix-icon="el-icon-lock"
+          v-model="form.password">
+        </el-input>
+      </el-form-item>
       <div class="login__box__pas">
-          <el-radio-group v-model="Rememberpassword">
-            <el-radio :label="ok">自动登录</el-radio>
-          </el-radio-group>
+        <el-checkbox v-model="Rememberpassword">自动登录</el-checkbox>
+        <router-link to="/">忘记密码?</router-link>
       </div>
-
-
+      <el-button class="login__box__submit" @click="login" type="primary">登录</el-button>
+        <div class="login__box__other">
+          <div class="login__box__other--name">其他登录方式 : </div>
+          <!-- <div></div> -->
+        </div>
     </div>
-    <div class="login__other"></div>
-  </div>
+
+  </el-form>
 </template>
 
 <script>
@@ -41,21 +47,50 @@ export default {
   name: 'Login',
   data(){
     return {
-      username: '',
-      password: '',
-      Rememberpassword: 'ok'
+      form:{
+        username: '',
+        password: '',
+      },
+      Rememberpassword: true,
+      rules: {
+        username: [
+          {required:true, message: '用户名不能为空',trigger: 'blur'}
+        ],
+        password: [
+          {required:true, message: '密码不能为空',trigger: 'blur'}
+        ]
+      }
+    }
+  },
+  methods: {
+    login(){
+      this.$refs['form'].validate(validate => {
+        if(validate){
+          // 执行登录流程
+          this.$store.dispatch('user/login',this.form)
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
+        }
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+$marginValue: 25px;
+
+
 .login {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   @include b('login__name'){
     display: flex;
@@ -86,11 +121,43 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 350px;
-    @include e('input'){
+    @include e('item'){
       width: 100%;
-      margin-bottom: 20px;
+      margin-bottom: $marginValue;
+    }
+    @include e('pas'){
+      color: $theme-color;
+      width: 100%;
+      font-size: 14px;
+      display: flex;
+      flex-direction:row;
+      align-items: center;
+      justify-content: space-between;
+      a {
+        color: $theme-color;
+        &:hover {
+          opacity: .8;
+        }
+      }
+    }
+    @include e('submit'){
+      margin-top: $marginValue;
+      width: 100%;
+      font-size: 16px;
+    }
+      @include e('other'){
+    margin-top: $marginValue;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    @include m('name'){
+      font-size: 14px;
+      color: $text-base-color;
     }
   }
+  }
+
 }
 
 

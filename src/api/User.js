@@ -1,7 +1,10 @@
 import instance from '../utils/reuqest'
 
-export function Login(params) {
-    return instance.get('/user/login', {
+export function login(params) {
+    console.log(params)
+    return instance({
+        url: '/user/login',
+        method: 'post',
         params
     })
 }
