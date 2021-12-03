@@ -74,16 +74,6 @@ export default {
         if(validate){
           // 执行登录流程
           this.$store.dispatch('user/login',this.form)
-          .then(res => {
-            if(res.data.status == 'error'){
-              this.$message({
-                message: '用户名或密码错误',
-                type: 'error'
-              });
-            } else {
-              this.$router.push({path:'/'})
-            }
-          })
         } else {
           this.$message({
             message: '请正确填写用户名或密码！',
