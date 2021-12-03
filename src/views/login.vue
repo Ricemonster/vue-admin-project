@@ -5,14 +5,14 @@
         <img src="~@/static/image/logo.png" alt="">
         <div>Admin Template Pro</div>
       </div>
-      <div class="login__name__des">Admin Template Pro 是我仿照 Ant Design 做的一个Web后台管理解决方案</div>
+      <div class="login__name__des">Admin Template Pro 是我仿照 Ant Design Pro 做的一个Web后台管理解决方案</div>
     </div>
     <div class="login__box">
       <el-form-item class="login__box__item" prop="username">
         <el-input
           type="text"
           class="login__box__input"
-          placeholder="用户名: admin visitor"
+          placeholder="用户名: admin 或 visitor"
           prefix-icon="el-icon-user"
           v-model="form.username">
         </el-input>
@@ -33,7 +33,13 @@
       </div>
       <el-button class="login__box__submit" @click="login" type="primary">登录</el-button>
         <div class="login__box__other">
-          <div class="login__box__other--name">其他登录方式 : </div>
+          <div class="login__box__other--name">
+            <span>其他登录方式:</span>
+            <div>
+              <div class="login__box__other--name__wx"><i class="iconfont">&#xe619;</i></div>
+              <div class="login__box__other--name__qq"><i class="iconfont">&#xe887;</i></div>
+            </div>
+          </div>
           <!-- <div></div> -->
         </div>
     </div>
@@ -69,12 +75,20 @@ export default {
           // 执行登录流程
           this.$store.dispatch('user/login',this.form)
           .then(res => {
-            console.log(res)
+            if(res.data.status == 'error'){
+              this.$message({
+                message: '用户名或密码错误',
+                type: 'error'
+              });
+            } else {
+              this.$router.push({path:'/'})
+            }
           })
-          .catch(err => {
-            console.log(err)
-          })
-
+        } else {
+          this.$message({
+            message: '请正确填写用户名或密码！',
+            type: 'error'
+          });
         }
       })
     }
@@ -154,6 +168,20 @@ $marginValue: 25px;
     @include m('name'){
       font-size: 14px;
       color: $text-base-color;
+      display: flex;
+      align-items: center;
+      & > div{
+        display: flex;
+        align-items: center;
+        div i {
+          font-size: 30px;
+          margin-left: 10px;
+          color: $background-header-color;
+          &:hover {
+            color: $theme-color;
+          }
+        }
+      }
     }
   }
   }

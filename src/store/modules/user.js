@@ -9,7 +9,9 @@ const state = {
 }
 
 const mutations = {
-
+    setToken(state, data) {
+        state.token = data
+    }
 }
 
 const actions = {
@@ -19,9 +21,6 @@ const actions = {
             login({ username, password })
                 .then(res => {
                     resolve(res)
-                })
-                .catch(err => {
-                    reject(err)
                 })
         })
     }

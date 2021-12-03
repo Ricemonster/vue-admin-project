@@ -4,7 +4,7 @@
             <img src="~@/static/image/logo.png" alt="">
             <div class="login__name">Admin Template Pro</div>
         </div>
-        <div class="login__loginBox">
+        <div class="login__loginBox" v-if="show">
             <div class="login__loginBox__search">
                 <i class="iconfont">&#xe8ef;</i>
             </div>
@@ -26,6 +26,12 @@
 import UserLogin from '@/components/UserLogin.vue'
 export default {
     name: 'Header',
+    props:{
+        show:{
+            type: Boolean,
+            default: true,
+        }
+    },
     components: {UserLogin}
 }
 </script>

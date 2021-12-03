@@ -18,7 +18,7 @@
     <div v-else>
       <el-container>
         <el-header height="48px" style="margin-bottom: 50px">
-          <Header />
+          <Header :show="false" />
         </el-header>
         <el-main>
           <router-view />
