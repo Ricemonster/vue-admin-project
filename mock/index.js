@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 
 
-const token = '[admintemplatepro_admin,admintemplatepro_visitor]'
+const Users = ['admintemplatepro_admin', 'admintemplatepro_visitor']
 Mock.mock('/user/login', 'post', (config) => {
     let { username, password } = JSON.parse(config.body)
     if ((username === 'admin' || username === 'visitor') && password === '123456') {
@@ -10,7 +10,7 @@ Mock.mock('/user/login', 'post', (config) => {
                 status: 'success',
                 msg: '登录成功',
                 data: {
-                    token: token[0]
+                    token: Users[0]
                 }
             }
         } else {
@@ -18,7 +18,7 @@ Mock.mock('/user/login', 'post', (config) => {
                 status: 'success',
                 msg: '登录成功',
                 data: {
-                    token: token[1]
+                    token: Users[1]
                 }
             }
         }
@@ -31,4 +31,28 @@ Mock.mock('/user/login', 'post', (config) => {
     }
 })
 
-Mock.mock('/user/getuserinfo', 'post', (config) => {})
+Mock.mock('/user/getuserinfo', 'post', (config) => {
+    let { token } = JSON.parse(config.body)
+    if (token == Users[0]) {
+        return {
+            status: 'success',
+            msg: '成功',
+            data: {
+                name: '城外三石',
+                roles: 'admin',
+                id: 0
+            }
+
+        }
+    } else if (token == Users[1]) {
+        return {
+            status: 'sucess',
+            msg: '成功',
+            data: {
+                name: '游客',
+                roles: 'visitor',
+                id: 0
+            }
+        }
+    }
+})

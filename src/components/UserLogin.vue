@@ -2,7 +2,7 @@
   <div class="userInfo">
       <div class="info">
           <img src="~@/static/image/u_d_avatar_m.png" alt="">
-          <div>科技部-郭磊</div>
+          <div>{{$store.state.user.userinfo.name}}</div>
       </div>
       <div class="droplist"></div>
   </div>

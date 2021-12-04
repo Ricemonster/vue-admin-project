@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="$store.state.token">
+    <div v-if="$store.getters.token">
       <el-container>
         <el-header height="48px">
           <Header />
@@ -35,13 +35,7 @@ import Header from './views/Layout/header.vue';
 import Footer from './views/Layout/footer.vue';
 export default {
   name: 'App',
-  components: {MenuBar,Header,Footer},
-  mounted(){
-    // Login()
-    // .then(res => {
-    //   console.log(res)
-    // })
-  }
+  components: {MenuBar,Header,Footer}
 }
 </script>
 

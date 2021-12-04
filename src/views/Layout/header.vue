@@ -4,15 +4,15 @@
             <img src="~@/static/image/logo.png" alt="">
             <div class="login__name">Admin Template Pro</div>
         </div>
-        <div class="login__loginBox" v-if="show">
-            <div class="login__loginBox__search">
+        <div class="login__loginBox">
+            <div class="login__loginBox__search"  v-if="show">
                 <i class="iconfont">&#xe8ef;</i>
             </div>
-            <div class="login__loginBox__tips">
+            <div class="login__loginBox__tips"  v-if="show">
                 <el-badge :value="10" :max="20"  class="Badge" />
                 <i class="iconfont">&#xe7c4;</i>
             </div>
-            <div class="login__loginBox__user">
+            <div class="login__loginBox__user"  v-if="show">
                 <UserLogin />
             </div>
             <div class="login__loginBox__language">
