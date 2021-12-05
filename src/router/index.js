@@ -6,7 +6,9 @@ import { repeatRoutes } from '@/utils/util.js'
 Vue.use(VueRouter)
 let routes = [{
         path: '/',
-        redirect: '/home',
+        redirect: { name: 'home' },
+        component: () =>
+            import ('@/views/Home/home.vue'),
         children: [{
             path: 'home',
             name: 'home',
@@ -16,6 +18,28 @@ let routes = [{
             },
             component: () =>
                 import ('@/views/Home/home.vue')
+        }, {
+            path: 'monitor',
+            name: 'monitor',
+            meta: {
+                title: '监控页',
+                icon: 'monitor',
+                roles: ['admin'],
+                hidden: true
+            },
+            component: () =>
+                import ('@/views/Home/monitor.vue')
+        }, {
+            path: 'analysis',
+            name: 'analysis',
+            meta: {
+                title: '分析页',
+                icon: 'analysis',
+                roles: ['admin'],
+                hidden: true
+            },
+            component: () =>
+                import ('@/views/Home/analysis.vue')
         }]
     },
     {
@@ -48,11 +72,15 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
+    NProgress.start()
     if (store.getters.token) { // 有token
+
         if (to.path === '/login') {
             next('/');
         } else {
             if (to.meta && to.meta.roles) { // 页面要权限的
+                console.log('需要的权限', to.path)
+                next()
                 if (store.getters.roles !== '') { // 页面已拉取用户数据
                     // 判断权限
                 } else { // 页面未拉取用户数据
@@ -85,13 +113,12 @@ router.beforeEach((to, from, next) => {
             next('/login');
         }
     }
-    NProgress.start()
 })
 
 
 router.afterEach((to, from) => {
-    document.title = to.meta.title + ' - Admin Template Pro'
     NProgress.done()
+    document.title = to.meta.title + ' - Admin Template Pro'
 })
 
 export default router

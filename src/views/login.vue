@@ -68,6 +68,16 @@ export default {
       }
     }
   },
+  mounted(){
+    let _this = this
+    document.onkeydown = function(e) {
+        var key = window.event.keyCode;
+        // 按下回车键
+        if (key == 13) {
+          _this.login()
+        }
+    }
+  },
   methods: {
     login(){
       this.$refs['form'].validate(validate => {

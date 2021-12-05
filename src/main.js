@@ -9,6 +9,10 @@ import 'normalize.css'
 import './styles/Base/base.scss';
 import './static/font/icons.css'
 import '../mock'
+const echarts = require('echarts')
+Vue.prototype.echarts = echarts;
+const echartsGL = require('echarts-gl')
+Vue.prototype.echartsGL = echartsGL;
 
 Vue.use(ElementUI);
 

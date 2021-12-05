@@ -9,42 +9,7 @@ const state = {
     userinfo: { // 用户信息
         roles: ''
     },
-    routes: [{
-            path: '/',
-            redirect: '/home',
-            children: [{
-                path: 'home',
-                name: 'home',
-                meta: {
-                    title: '导航页',
-                    icon: 'home'
-                },
-                component: () =>
-                    import ('@/views/Home/home.vue')
-            }]
-        },
-        {
-            path: '/login',
-            name: 'login',
-            meta: {
-                title: '登录',
-                icon: 'login'
-            },
-            component: () =>
-                import ('@/views/login.vue')
-        },
-        {
-            path: '*',
-            name: '404',
-            meta: {
-                title: '404',
-                icon: '404',
-            },
-            component: () => {
-                import ('@/views/404.vue')
-            }
-        }
-    ],
+    routes: [],
     whiteList: [] // 白名单
 
 }
