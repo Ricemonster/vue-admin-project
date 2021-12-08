@@ -7,7 +7,7 @@ export function getallroutes() {
     });
     return routes
 }
-//  根据 roles 构建动态路由表
+// 根据 roles 构建动态路由表
 export function buildroutes(allroutes, roles) {
     let routes = []
     allroutes.forEach((item) => {

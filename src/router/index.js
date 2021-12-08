@@ -58,10 +58,10 @@ let routes = [{
         meta: {
             title: '404',
             icon: '404',
+            hidden: true
         },
-        component: () => {
+        component: () =>
             import ('@/views/404.vue')
-        }
     }
 ]
 
@@ -74,12 +74,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     NProgress.start()
     if (store.getters.token) { // 有token
-
         if (to.path === '/login') {
             next('/');
         } else {
             if (to.meta && to.meta.roles) { // 页面要权限的
-                console.log('需要的权限', to.path)
                 next()
                 if (store.getters.roles !== '') { // 页面已拉取用户数据
                     // 判断权限

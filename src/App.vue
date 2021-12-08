@@ -11,6 +11,7 @@
           </el-aside>
           <el-main>
             <router-view />
+            <Footer />
           </el-main>
         </el-container>
       </el-container>
@@ -59,5 +60,6 @@ export default {
   .el-main {
     height: 100%;
     overflow: scroll-y;
+    position: relative;
   }
 </style>

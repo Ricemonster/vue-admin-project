@@ -4,9 +4,8 @@ export default {
     meta: {
         title: '404',
         icon: '404',
-        hidden: true,
+        hidden: true
     },
-    component: () => {
+    component: () =>
         import ('@/views/404.vue')
-    }
 }
