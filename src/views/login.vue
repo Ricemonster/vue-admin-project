@@ -7,6 +7,10 @@
       </div>
       <div class="login__name__des">Admin Template Pro 是我仿照 Ant Design Pro 做的一个Web后台管理解决方案</div>
     </div>
+    <div class="login__firstLogin">
+      <el-button @click="onelogin('visitor')">游客一键登录</el-button>
+      <el-button @click="onelogin('admin')">管理员一键登录</el-button>
+    </div>
     <div class="login__box">
       <el-form-item class="login__box__item" prop="username">
         <el-input
@@ -32,16 +36,15 @@
         <router-link to="/">忘记密码?</router-link>
       </div>
       <el-button class="login__box__submit" @click="login" type="primary">登录</el-button>
-        <div class="login__box__other">
-          <div class="login__box__other--name">
-            <span>其他登录方式:</span>
-            <div>
-              <div class="login__box__other--name__wx"><i class="iconfont">&#xe619;</i></div>
-              <div class="login__box__other--name__qq"><i class="iconfont">&#xe887;</i></div>
-            </div>
+      <div class="login__box__other">
+        <div class="login__box__other--name">
+          <span>其他登录方式:</span>
+          <div>
+            <div class="login__box__other--name__wx"><i class="iconfont">&#xe619;</i></div>
+            <div class="login__box__other--name__qq"><i class="iconfont">&#xe887;</i></div>
           </div>
-          <!-- <div></div> -->
         </div>
+      </div>
     </div>
 
   </el-form>
@@ -79,6 +82,7 @@ export default {
     }
   },
   methods: {
+    // 登录
     login(){
       this.$refs['form'].validate(validate => {
         if(validate){
@@ -93,6 +97,18 @@ export default {
           });
         }
       })
+    },
+    // 一键登录
+    onelogin(loginName){
+      if (loginName == 'admin'){
+          this.form.username = 'admin'
+          this.form.password = '123456'
+          this.login()
+      } else if(loginName == 'visitor') {
+          this.form.username = 'visitor'
+          this.form.password = '123456'
+          this.login()
+      }
     }
   }
 }
@@ -131,6 +147,13 @@ $marginValue: 25px;
       color: rgba(0,0,0,.45);
     }
   }
+  @include b('login__firstLogin'){
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: -30px;
+  }
   @include b('login__box'){
     margin-top: 50px;
     display: flex;
@@ -161,7 +184,7 @@ $marginValue: 25px;
       width: 100%;
       font-size: 16px;
     }
-      @include e('other'){
+    @include e('other'){
     margin-top: $marginValue;
     width: 100%;
     display: flex;

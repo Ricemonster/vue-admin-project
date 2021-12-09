@@ -39,7 +39,7 @@ const actions = {
                 } else {
                     setToken(res.data.data.token)
                     commit('setToken', res.data.data.token)
-                    router.push('/')
+                    router.push('/').catch(err => {})
                 }
             })
     },
@@ -59,7 +59,6 @@ const actions = {
             commit('setRoutes', routes)
             resolve()
         })
-
     }
 }
 

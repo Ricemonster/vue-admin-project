@@ -30,7 +30,7 @@ export default {
   font-size: 14px;
   @include b('footer__1'){
     & i:hover{
-      color: $text-base-color;
+      color: rgba(0,0,0);
     }
   }
   @include b('footer__2'){

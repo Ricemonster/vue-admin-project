@@ -92,10 +92,8 @@ router.beforeEach((to, from, next) => {
                         store.dispatch('user/buildroutes', {
                             roles: store.getters.roles
                         }).then(_ => {
-                            repeatRoutes(router.options.routes, store.getters.routes).forEach((item) => {
-                                router.addRoute(item)
-                            })
-                            next()
+                            router.addRoutes(repeatRoutes(router.options.routes, store.getters.routes))
+                            next({...to, replace: true })
                         })
                     })
                 }
