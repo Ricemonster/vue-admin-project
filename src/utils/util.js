@@ -65,3 +65,15 @@ function _nestedRoute(item, roles) {
     item.children = childrenList
     return item
 }
+
+//  路由在history模式中,在地址栏中直接输入url会到404页面中的问题
+export function history_is404(allroutes, nowroute) {
+    let is404 = false
+    allroutes.forEach(item => {
+        if (item.path == nowroute) {
+            is404 = true
+        }
+    })
+    return is404
+
+}

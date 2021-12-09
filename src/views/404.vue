@@ -1,12 +1,19 @@
 <template>
   <div>
-      <img src="~@/static/image/404.svg"  color="" />
+      <img src="~@/static/image/404.svg" />
   </div>
 </template>
 
 <script>
+import { history_is404 } from '@/utils/util.js'
 export default {
-    name: 'notfound404'
+    name: 'notfound404',
+    created(){
+      // 解决history地址栏输入带来的问题
+      if(history_is404(this.$store.getters.routes,this.$route.path)){
+        this.$router.push(this.$route.path)
+      }
+    }
 }
 </script>
 

@@ -45,7 +45,10 @@ export default {
   },
   methods: {
     handleSelect(key){
-      this.$router.push(key)
+      // 防止重复push错误
+      if(key !== this.$route.path){
+        this.$router.push(key)
+      }
     }
   },
   watch:{

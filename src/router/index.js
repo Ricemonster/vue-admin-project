@@ -78,11 +78,22 @@ router.beforeEach((to, from, next) => {
             next('/');
         } else {
             if (to.meta && to.meta.roles) { // 页面要权限的
-                next()
                 if (store.getters.roles !== '') { // 页面已拉取用户数据
                     // 判断权限
+                    if (to.meta.roles.indexOf(store.getters.roles) !== -1) {
+                        next()
+                    } else {
+                        next('*')
+                    }
                 } else { // 页面未拉取用户数据
-
+                    store.dispatch('user/getuserinfo', store.getters.token).then(_ => {
+                        store.dispatch('user/buildroutes', {
+                            roles: store.getters.roles
+                        }).then(_ => {
+                            router.addRoutes(repeatRoutes(router.options.routes, store.getters.routes))
+                            next({...to, replace: true })
+                        })
+                    })
                 }
             } else { // 页面不需要权限的
                 if (store.getters.roles !== '') { // 页面已拉取用户数据
@@ -110,7 +121,6 @@ router.beforeEach((to, from, next) => {
         }
     }
 })
-
 
 router.afterEach((to, from) => {
     NProgress.done()
