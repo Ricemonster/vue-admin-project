@@ -8,7 +8,7 @@ let routes = [{
         path: '/',
         redirect: { name: 'home' },
         component: () =>
-            import ('@/views/Home/home.vue'),
+            import ('@/views/Home/index.vue'),
         children: [{
             path: 'home',
             name: 'home',

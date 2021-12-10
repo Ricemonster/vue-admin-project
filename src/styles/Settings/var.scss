@@ -6,9 +6,11 @@ $black-color: #000000; // 默认黑
 $background-header-color: #001529; // Header 背景色
 $background-aside-color: $white-color; // MenuBar 背景色
 $background-main-color: #eef0f3; // Main 背景色
+$background-main-card-color: $white-color; // 主页块背景色
 // 文字颜色
 $text-base-color: rgba(0, 0, 0, .85); // 默认文字颜色
 $text-header-color: $white-color; // Header 文字颜色
+$text-main-title-color:rgba(0, 0, 0, .45);
 // 图标颜色
 $icon-header-color: $white-color;
 $icon-aside-color: $text-base-color;

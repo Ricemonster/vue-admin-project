@@ -3,7 +3,7 @@
     <el-row class="tac">
       <el-col :span="24">
         <el-menu
-          default-active="$route.path"
+          :default-active="$route.path"
           @select="handleSelect"
           >
         <template v-for="(fitem,findex) in $store.getters.routes">
@@ -48,6 +48,11 @@ export default {
       // 防止重复push错误
       if(key !== this.$route.path){
         this.$router.push(key)
+      } else {
+        this.$message({
+          message: '您已处于当前点击页面',
+          type: 'warning'
+        })
       }
     }
   },
