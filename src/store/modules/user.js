@@ -52,7 +52,7 @@ const actions = {
             });
             setTimeout(_ => {
                 location.reload()
-            }, 2000)
+            }, 1000)
 
         })
     },
