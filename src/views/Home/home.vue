@@ -41,10 +41,40 @@
             </div>
         </el-col>
         <el-col :span="6">
-            <div class="table-card"></div>
+            <div class="table-card">
+                <div class="table-card__title">
+                    <div>支付笔数</div>
+                    <el-tooltip class="item" effect="dark" content="指标提示信息" placement="top-start">
+                        <i class="iconfont icon-info-circle"></i>
+                    </el-tooltip>
+                </div>
+                <div class="table-card__number">
+                    <i class="iconfont icon-transaction"></i>126,560
+                </div>
+                <div class="table-card__table">
+                    <div id="payNumber"></div>
+                </div>
+                <div class="table-card__anthor">
+                今日支付 1 笔
+                </div>
+            </div>
         </el-col>
         <el-col :span="6">
-            <div class="table-card"></div>
+            <div class="table-card">
+                <div class="table-card__title">
+                    <div>项目已安全运行</div>
+                    <el-tooltip class="item" effect="dark" content="指标提示信息" placement="top-start">
+                        <i class="iconfont icon-info-circle"></i>
+                    </el-tooltip>
+                </div>
+                <div class="table-card__number" style="height:80px;">
+                    <i class="iconfont icon-bug" style="color:green;font-size:30px;"></i>
+                    {{runTime}}
+                </div>
+                <div class="table-card__anthor">
+                今日正常运行
+                </div>
+            </div>
         </el-col>
     </el-row>
     <el-row :gutter="20">
@@ -61,7 +91,11 @@
                 </ul>
             </div>
         </el-col>
-        <el-col :span="14"></el-col>
+        <el-col :span="14">
+            <div class="chart3d">
+                <div id="chart3dcanvas"></div>
+            </div>
+        </el-col>
     </el-row>
     <!-- <div id="map"></div> -->
   </div>
@@ -69,43 +103,53 @@
 
 <script>
 import { getAllcommit } from '@/api/github'
-import { date24 } from '@/utils/date'
+import { date24,runTime } from '@/utils/date'
+let setInt = ''
+
 export default {
   mounted(){
     getAllcommit().then(res => {
         this.commitList = res.data.slice(0,6)
         this.loading = false
     })
-
-    let _this = this // 在Chart内部访问this
     this.visits()
-    
-    },
-    data(){
+    this.payNumber()
+    this.chart3dcanvas()
+    let _this = this
+    setInt = setInterval(_ => {
+        _this.runTime = runTime("2021-11-29")
+    },100)
+  },
+  data(){
         return {
             commitList: [],
             loading: true,
+            runTime: ''
         }
-    },
-    methods: {
+  },
+  methods: {
         date24(data){
             return date24(data)
         },
         // 渲染访问量图标
         visits(){
             let option = {
+                color: ['#1890ff'],
                 xAxis: {
                     show: false,
                     type: 'category',
                     boundaryGap: false,
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','a','s']
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','a','s','aa','bb','vv','dd','dd','dd','dd']
                 },
                 yAxis: {
                     show: false,
                 },
+                tooltip: {
+                    trigger: 'axis'
+                },
                 series: [
                     {
-                    data: [820, 932, 901, 934, 1290, 1330, 0,1320,700,600,500,100],
+                    data: [820, 932, 901, 934, 1290, 1330,700,600,500,300,200,120,150,200,990,1200],
                     type: 'line',
                     areaStyle: {}
                     }
@@ -114,8 +158,36 @@ export default {
             let Chart = this.echarts.init(document.getElementById("visits"));
             Chart.setOption(option);
             Chart.resize()
-        }
-    }
+        },
+        // 渲染支付笔数
+        payNumber(){
+            let option = {
+                xAxis: {
+                    show: false,
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                },
+                yAxis: {
+                    show: false,
+                    type: 'value'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                series: [
+                    {
+                    data: [120, 200, 150, 80, 70, 110, 130],
+                    type: 'bar'
+                    }
+                ]
+            };
+            let Chart = this.echarts.init(document.getElementById("payNumber"));
+            Chart.setOption(option);
+            Chart.resize()
+        },
+        // 渲染3d排名
+        chart3dcanvas(){}
+  }
 
 }
 </script>
@@ -130,7 +202,19 @@ export default {
     font-size: 15px;
     color: $text-base-color;
     max-height: 140px; 
+    overflow: hidden;
 }
+// chart块样式
+@mixin chartTheme{
+    height: 180px;
+    width: 120%;
+    margin-left: -45px;
+    margin-top: 10px;
+    position: absolute;
+    top: 20;
+    z-index: 1 !important;
+}
+
 .home {
     @include b('table-card'){
         @include cardTheme;
@@ -140,11 +224,15 @@ export default {
             flex-direction:row;
             align-items: center;
             justify-content: space-between;
+            position: relative;
+            z-index: 100;
         }
         @include e('number'){
             margin-top: 10px;
             font-size: 30px;
             font-weight: 500;
+            display: flex;
+            align-items: center;
         }
         @include e('table'){
             display:flex;
@@ -199,16 +287,20 @@ export default {
             }
         }
     }
+    @include b('chart3d'){
+        @include cardTheme;
+        margin-top: 20px;
+    }
 }
 
 
 // 访问量图表
 #visits {
-    position: absolute;
-    top: 10;
-    width: 400px;
-    height: 180px;
-    margin-left: -30px;
+    @include chartTheme
+}
+// 支付笔数
+#payNumber {
+    @include chartTheme  
 }
 // 三角形提示
 #triangle-up {
