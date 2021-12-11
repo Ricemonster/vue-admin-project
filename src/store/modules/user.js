@@ -1,4 +1,4 @@
-import { getToken, setToken } from '@/utils/auth.js'
+import { getToken, setToken, removeToken } from '@/utils/auth.js'
 import { getallroutes, buildroutes } from '@/utils/util.js'
 import { login, getUserinfo } from '../../api/user.js'
 import { Message } from 'element-ui'
@@ -42,6 +42,19 @@ const actions = {
                     router.push('/').catch(err => {})
                 }
             })
+    },
+    loginout() {
+        return new Promise((resolve) => {
+            removeToken()
+            Message({
+                message: '已退出登录',
+                type: 'success'
+            });
+            setTimeout(_ => {
+                location.reload()
+            }, 2000)
+
+        })
     },
     getuserinfo({ commit }, token) {
         return new Promise((resolve, reject) => {
