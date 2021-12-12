@@ -1,7 +1,26 @@
 import Mock from 'mockjs'
 
+// 所有用户表
+const Allusers = [
+        { name: 'admin', password: '123456', roles: 'admin' },
+        { name: 'visitor', password: '123456', roles: 'visitor' },
+    ]
+    // 所有用户的token比对表
+const tokens = ['admintemplatepro_admin', 'admintemplatepro_visitor']
 
-const Users = ['admintemplatepro_admin', 'admintemplatepro_visitor']
+const UserGroup = [{
+        name: '管理员',
+        role: 'admin',
+        views: [],
+        operate: []
+    },
+    {
+        name: '游客',
+        role: 'visitor',
+        views: [],
+        operate: []
+    }
+]
 Mock.mock('/user/login', 'post', (config) => {
     let { username, password } = JSON.parse(config.body)
     if ((username === 'admin' || username === 'visitor') && password === '123456') {
@@ -33,18 +52,18 @@ Mock.mock('/user/login', 'post', (config) => {
 
 Mock.mock('/user/getuserinfo', 'post', (config) => {
     let { token } = JSON.parse(config.body)
-    if (token == Users[0]) {
+    if (token == tokens[0]) {
         return {
             status: 'success',
             msg: '成功',
             data: {
-                name: '城外三石',
+                name: '管理员',
                 roles: 'admin',
                 id: 0
             }
 
         }
-    } else if (token == Users[1]) {
+    } else if (token == tokens[1]) {
         return {
             status: 'sucess',
             msg: '成功',
@@ -54,5 +73,22 @@ Mock.mock('/user/getuserinfo', 'post', (config) => {
                 id: 0
             }
         }
+    }
+})
+
+Mock.mock('/user/getAllUser', 'post', (config) => {
+    return {
+        status: 'success',
+        msg: '成功',
+        data: Allusers
+    }
+})
+
+
+Mock.mock('/user/getUserGroup', 'post', (config) => {
+    return {
+        status: 'success',
+        msg: '成功',
+        data: UserGroup
     }
 })
